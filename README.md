@@ -1,5 +1,6 @@
 Repo: 5143 Operating Systems Repo
 
+Name: Parker Hagmaier
 
 Email: parkerhagmaier@gmail.com
 
