@@ -1,8 +1,8 @@
 # Terminal Project
  Name Terminal Project
  Date: 2/20/2022
- Shell must be ran in the terminal
- Group of: Parker Hagmaier, Sabin Dheke, and, Md Abubakkar
+ Shell must be ran in the terminal. 
+ Group of: Parker Hagmaier, Sabin Dheke, and, Md Abubakkar.
  In this project we have created a basic terminal using python.
  a full list of the functions and commands can be found in the commands.md page
  I am not great at github so if this needs to be more orginized or changed in some way please let me know
