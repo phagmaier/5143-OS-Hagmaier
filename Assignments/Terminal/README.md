@@ -6,7 +6,7 @@
 ## All of our commands/functions work and are able to be redirected/piped and or recieve input from both pipes and redirects 
 ## Not all of the code is perfect for example our ls does not display the way ls is displayed sorted into rows in columns in a real terminal but 
 ## Everything does work. The shell.py file contains the actual shell which is what takes user input and calls commands or at least calls the fnction that calls commands
-## the main.py is the shell part but the work of sending the commands to get called and dealing with pipe or redirects is done in the parse.py file which then
+## the shell.py is the shell part but the work of sending the commands to get called and dealing with pipe or redirects is done in the parse.py file which then
 ## calls the call() function which uses a dictionary that has all our functions imported into it
 ## our parse uses reccursion to deal with pipeing and or redirection constantly calling itself without the pipe or redirect and then feeding that in as input to the 
 ## next command this is more thourgly explained in the comments of each specific command/function 
