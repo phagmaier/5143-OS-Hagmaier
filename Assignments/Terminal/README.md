@@ -20,7 +20,7 @@
  next command this is more thourgly explained in the comments of each specific command/function 
  The Ls command is where i recieved the most help since i was clueless on how to accomplish this and it will be cited bellow along with others
 ## Sources:
- LS Command source this was the source I most used and took from: Carl Tashian Youtube channel (https://www.youtube.com/watch?v=VTNrfcDrP_U&t=107s) 
+ LS Command (source which was the source I took from more than any other source): Carl Tashian Youtube channel (https://www.youtube.com/watch?v=VTNrfcDrP_U&t=107s) 
  Colors: https://stackoverflow.com/questions/63768372/color-codes-for-discord-py (Used almost in its entirety since it is just the codes on how to change the color)
  The sort in Ls along with the sort in my sort function to sort by lowercase is from: https://stackoverflow.com/questions/28136374/python-sort-strings-alphabetically-lowercase-first
  rm and rm dir. (How to use shutil to remove directories/files): https://www.geeksforgeeks.org/delete-a-directory-or-file-using-python/
