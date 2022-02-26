@@ -21,10 +21,11 @@ import stat
 from pwd import getpwuid
 from grp import getgrgid
 import sys
-
-#need to fix display for non -l ls flags and for fn's that are two words need to sort them better maybe 
-#you need to sort them the same way they were eneted 
-#also add color to files that are directories 
+'''
+A leftover from previous versions it tries to make sure the ls directory
+command where a directory that is not the current directory actually exists it is a function that error 
+checks and makes sure this directory really is present within the system 
+'''
 def pathExists(path, current_path):
 	x = os.path.exists(path)
 	y = path
@@ -39,19 +40,30 @@ def pathExists(path, current_path):
 		y = current_path + path
 	return y
 
-
+'''
+function to determine if file or directory and return the corresponding letter to be displayed 
+d is for directory. Didn't need to be a function to itself but again I thought it made it easier and more readable
+'''
 def filetype(file):
 	if stat.S_ISDIR(file):
 		return 'd'
 	else:
 		return '-'
-
+'''
+a function to conver the datetime into the format it is diplayed in a real ls terminal commmand
+'''
 def get_time(date):
 	import datetime
 	time = datetime.datetime.fromtimestamp(date)
 	return time.strftime('%b %d %H:%M')
 
-
+'''
+Thought it would unjumble the code if we could just send each command that needs to be printed to a print command 
+ls prints differently depending if it is called with a -l flag. It is not displayed just as it is in the real command 
+version since our non l display doesn't print alphabetically vertically and then switches to the next column to again display
+horizontally we just print horizontally.
+THe l flag prints all the directories/files vertically 
+'''
 def printFunc(data, flag=None):
 	if flag == None:
 		for thing in data:
@@ -67,7 +79,13 @@ def printFunc(data, flag=None):
 		print('ERROR: Something wrong with my print command')
 		sys.stdout.write("\r" + '\n')
 		return
-
+'''
+here we loop through everything in the specified directory and we append it to the list x 
+there is a condition to add quotes around spaces files/directories to mimic the real ls command
+we also sort this list so it will be displayed as closley to the real ls command as possible 
+the two sorts are an attempt to sort by lowercase which was suprisingly difficult the code to do this 
+I found online and is cited in the sources section of our readme.md document 
+'''
 
 def standardLs(path):
 	x = []
@@ -80,7 +98,12 @@ def standardLs(path):
 		if ' ' in thing:
 			thing = "'" + thing + "'"
 	return x
-
+'''
+The h function converts the filesizes into something more 'human readable'
+to do this we must determine the size and depending on it's size we divide it by the corresponding character
+i.e if it's of size 10000 it must be divided by 1000 and this 1000 will be replaced by k and whatever is left over 
+will be expressed as a decimal 
+'''
 def hFunction(size):
 	if size < 1000:
 		hsize = str(size)
@@ -97,7 +120,15 @@ def hFunction(size):
 		hsize = float("{0:.1f}".format(hsize))
 		hsize = str(hsize) + 'K'
 	return hsize
-
+'''
+In long list as with all the ls functions we need to loop through everything in the directory 
+the for loop variable is fn. We then collect and save all the information from the filestats function and 
+saving each particular aspect like owner or user id to a variablle. We also must determine the the file permisions 
+the characters for these must be determined since they are originally in numeric format. We put the particular 
+permission character in a list and from the source video cited above I learned you can determine what mode characters 
+corresponds to what number through a clever way of doing a modulus 3 (i % 3) on each number to determine what the 
+correspondng character is 
+'''
 def longList(path, h=None):
 	x = []
 	for fn in standardLs(path):
@@ -123,8 +154,12 @@ def longList(path, h=None):
 		x.append(y)
 	return x
 
-
-
+'''
+Lsa is the long listing expect we include files that begin with '.' (dot)
+we Here we just have to use a for loop to list through everything in the directory and append them to 
+the y list and then we sort everything inside the array and return it to either be returned again or sent 
+to the print function
+'''
 def lsA(path):
   x = ['.', '..']
   y = []
@@ -145,7 +180,14 @@ def lsA(path):
         x[i] = '.' + x[i]
   return x
 
-
+'''
+here we get the 'filestats' of all files/directories in a directory 
+as you can see we have to remove quotes from spaced directories/files since on mac the quote is passed
+literally and it will not recognize the file hence the if statment for quotes and the fn[1:-1]
+we then get the owner userId and group id all using the respictive call of the filestats.
+If h is a flag we also modift the size by calling the hFunction on the silests.st_size variable
+we also collect the mode and perms once agaiin using filestats
+'''
 def longListA(path, h=None):
 	x = []
 	for fn in lsA(path):
@@ -172,7 +214,14 @@ def longListA(path, h=None):
 		y = [mode, owner, uid, grName, size, time, fn]
 		x.append(y)
 	return x
-
+'''
+This function will call the correct ls function depending on what falgs were or were not passed
+the variable and checks to make sure that the proper directory is passed is not necisary and was a reminant from 
+earlier terminal design where I thought the current directory must always be passed but I am afraid to delete anything and break the 
+function. That being said what we do here is we check if the function is to be piped and if it's not we call the correct ls function
+and save the output as a variable and then send that output to the print command. Need a print command because if it is 
+redirected this print command will not be called and the long list print is different then the non long list print/display
+'''
 def callLs(path, flag, pipeOrRed, currentDir):
 	if path !=None:
 		newpath = currentDir + path
@@ -223,7 +272,12 @@ def callLs(path, flag, pipeOrRed, currentDir):
 		print('ls: invalid flag: ' + flag)
 		return
 
-
+'''
+This function parses the argements sent and determines if it was piped if it should be piped and 
+also error checks to make sure we didn't call ls on some directory that doesn't exist.
+After we error check and colect flags by looping through the args we call callLs a function that
+will call the proper ls function depending on what falgs were or were not passed 
+'''
 def ls(wasPiped, *args):
 	import os
 	pipeOrRed = False
