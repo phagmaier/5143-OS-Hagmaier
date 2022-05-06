@@ -1,6 +1,5 @@
 # Reader Writer 2
-Name: Parker Hagmaier 
-Date: 05/06/2022
+Parker Hagmaier, 05/06/2022:
 This project attempts to simulate locking down shared memory and using our own locks.
 The first two runs of the simulation show what occurs when we don't account for privliged instructions meaning
 we are not protecting them or locking down memory to ensure each prioirty instruction is run in order. 
