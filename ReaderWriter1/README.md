@@ -74,3 +74,17 @@ Each run will consist of executing 1 files worth of instructions and performing 
 Lock all of the memory blocks (A,B,C)
 Lock only the necessary component (A), (B), (C) as needed. This does mean we might need to obtain more than one lock per instruction as it may be locked by another process.
 1 write
+
+## Files
+|   #   | File                | Description                                                                            |
+| :---: | --------------------| ---------------------------------------------------------------------------------------|
+|   1   | Main.py             | Main driver of my project that launches simulation.                                    |
+|   2   | memory.json         | This file represents our memory.                                                       |
+|   3   | memory.py           | generate random instructions, and add those to a string                                |
+|   4   |RandInstructions.py  | Generate random instruction files                                                      |
+|   5   | Rich_Layout.py      | Creates the reader and writer visualizations                                           |
+|   6   | RWlock.py           | Locks down protected memory and makes sure two writers don't write same memory sections|
+
+How to run readerWriter2:
+Reader writer two must be run in main after installing rich. To run program run python3 main.py
+All these files must also be in the same directory
