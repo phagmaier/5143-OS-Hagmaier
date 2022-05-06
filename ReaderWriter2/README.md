@@ -15,14 +15,15 @@ the user should notice that shared memory is not changing. Prioirty instructions
 and a write of that register bakc to that same segment of shared memory. This helps to show the signifcant difference in shared memory when run with
 and without locks. 
 ## Files
-|   #   | File            | Description                                                                   |
-| :---: | --------------- | ------------------------------------------------------------------------------|
-|   1   | Main.py         | Main driver of my project that launches simulation.                           |
-|   2   | pcb.py          | Holds instructions each file. Maintains state when context switched           |
-|   3   | lock.py         | Holds prioirty instruction number must be unlocked to run prioirty instruction|
-|   4   |cpu.py           | Performs arithmatic operations runs and parses instructions.                  |
-|   5   | memory.json     | This file represents our memory.                                              |
-|   6   | term.py         | After a instruction block is completed it is stored in a list in the termqueue|
+|   #   | File                | Description                                                                   |
+| :---: | --------------------| ------------------------------------------------------------------------------|
+|   1   | Main.py             | Main driver of my project that launches simulation.                           |
+|   2   | pcb.py              | Holds instructions each file. Maintains state when context switched           |
+|   3   | lock.py             | Holds prioirty instruction number must be unlocked to run prioirty instruction|
+|   4   |cpu.py               | Performs arithmatic operations runs and parses instructions.                  |
+|   5   | memory.json         | This file represents our memory.                                              |
+|   6   | term.py             | After a instruction block is completed it is stored in a list in the termqueue|
+|   7   | buildInstructions.py| Creates instruction files that contain all regular and prioirty instructions  |
 
 How to run readerWriter2:
 Reader writer two must be run in main after installing rich. To run program run python3 main.py
