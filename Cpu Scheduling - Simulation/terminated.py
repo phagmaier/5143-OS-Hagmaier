@@ -1,3 +1,7 @@
+'''
+stores any finished job here
+'''
+
 class Terminated:
   def __init__(self):
 	  self.termQueue = []
