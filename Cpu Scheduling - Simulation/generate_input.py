@@ -1,3 +1,7 @@
+'''
+Created by Dr. Griffin to generate a json files of jobs
+'''
+
 import random
 import sys
 import json
