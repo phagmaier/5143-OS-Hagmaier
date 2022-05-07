@@ -1,3 +1,8 @@
+'''
+shows the completion of our simulation. Loaded with the total number of jobs and it is incremented each time a job is sent to the 
+termQueue
+
+'''
 import rich
 from rich import print
 from rich.columns import Columns
