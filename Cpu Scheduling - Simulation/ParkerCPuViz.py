@@ -14,12 +14,12 @@ import random
 import json
 import sys,os
 
-#you need to get every job inside the list of 
-#of CPUs and append it to a list 
-#you will then pass in that list to:
-#CpuViz.update(theList)
-#then in whatever partion you made for cpu
-#add it to that
+'''
+Class to dynamically visualize CPU. Each column is its own CPU and 
+each row shows what jobs instruction number is inside the CPU.
+Could not find a way to assign a specific value to a specific section of a row so we hard coded what could happen 
+depending on how many cpus are chosen we set a cap on cpus at seven because of this
+'''
 
 class CpuViz:
   def __init__(self, number):
