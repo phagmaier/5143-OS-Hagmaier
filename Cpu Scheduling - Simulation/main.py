@@ -1,3 +1,13 @@
+'''
+THis file is responable for calling create jobs and reading the instruction file which contains
+all of our instructions. We take user input to indicate how many cpus and IOs the user desires to simulate and then
+the user also must select from one of our five algorithms. CreateJobs is called when the file is loaded and this 
+turns each job into an object and appends it into a list. We then send these jobs the number of CPUS and IOs as well
+as the selected algorithm into the testign() function which is the driver of the program. 
+
+
+'''
+
 import rich
 import time
 import json
@@ -22,12 +32,7 @@ from ParkerIoViz import IoViz
 from ParkerCPuViz import CpuViz
 from progBar import Prog_Bar
 from time import sleep
-#table = Table(title="Jobs")
 
-#table.add_column("Job I.D.", style="cyan", no_wrap=True)
-#table.add_column("Task")
-#table.add_column("CPU Wait Time", justify="right", style="orange_red1")
-#table.add_column("I/O Wait Time", justify="right", style="bright_yellow")
 
 table1 = Table(title="Results")
 
@@ -58,7 +63,10 @@ layout = Layout()
 
 layout.split(Layout(name="header"), Layout(name="main"), Layout(name="footer"))
 
-
+'''
+Here we load jobs from the file and create objects each object containing all the information of the job information inside the file
+We append all these objects to a list
+'''
 def createJobs():
 
     jobList = []
@@ -85,6 +93,21 @@ def createJobs():
         jobList.append(job)
 
     test(algo, timeSlice, cpus, ios, jobList)
+
+'''
+Our driver function takes in the time slice which is only used for round robin 
+the selected algorithm the cpus and ios both in a list and a list of all our job objects
+We then create our new ready term and waiting queues
+A series of if statments are used along with the corresponding boolean values for each queue cpu or IO
+which locks down each of these so only one action can take place withon a given clock tick. Our function does not end 
+until the term queue is the same length as the number of jobs. We first increment all job objects inside the waiting queue and ready queue
+We then check if we need to append any values to the termqueue. Then we attempt to see if we can movea any jobs from IO to ready and then from CPU 
+to waiting. For RR we also check if we should move off CPU and back to ready. Finally we see if we should run IO or cpu and how many of these should be 
+run. At the end of the long list of if statments we update the visulized tables and we reset the boolean makeshift locks. At the end of the while loop
+we calculate turnaround time and average wait time. 
+'''
+
+
 
 
 def test(algo, timeSlice, cpus, ios, jobs):
@@ -279,6 +302,16 @@ def test(algo, timeSlice, cpus, ios, jobs):
     print("The percentage of CPU utiization is:" + str(cpuActive * 100))
     print("The percentage of I/O utiization is:" + str(ioActive * 100))
 
+
+    compare = open("compare.txt", "a")
+    compare.write("Algorithm: " + algo + '\n')
+    compare.write("The average CPU wait time is:" + str(averageIoWait) + '\n')
+    compare.write("The average IO wait time is:" + str(averageCpuWait) + '\n')
+    compare.write("The average turn around time is:" + str(averageTat) + '\n')
+    compare.write("The percentage of CPU utiization is:" + str(cpuActive * 100) + '\n')
+    compare.write("The percentage of I/O utiization is:" + str(ioActive * 100) + '\n' + '\n' + '\n' + '\n')
+    compare.close()
+
 with Live(layout, screen=True, redirect_stderr=False, transient = True, refresh_per_second = 4) as live:
     createJobs()
     try:
@@ -287,5 +320,5 @@ with Live(layout, screen=True, redirect_stderr=False, transient = True, refresh_
     except KeyboardInterrupt:
         pass
 
-# if __name__ == "__main__":
-#   createJobs()
+if __name__ == "__main__":
+  createJobs()
